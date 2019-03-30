@@ -10,7 +10,7 @@ class colorIdentifier:
     from clarifai.rest import Image as ClImage
     
     def __init__(self,path):
-        app = ClarifaiApp(api_key='c74551e84dce4f2aa6528c43e24dc050')
+        app = ClarifaiApp(api_key='')
         model = app.models.get('color')
         response = model.predict_by_filename(path)
         

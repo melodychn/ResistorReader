@@ -1,16 +1,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.colors as colors
-import scipy.ndimage.filters as sp
-import scipy.signal as sig
-import scipy.spatial.distance as similarity
+
+
+#import matplotlib.colors as colors
+#import scipy.ndimage.filters as sp
+#import scipy.signal as sig
+#import scipy.spatial.distance as similarity
+
 
 # in gray scale img more of one color will look lighter
 #[r,g,b]
 
+def betwnValues(val, min, max):
+    return (val > min) * (val < max)
 
 
-img = plt.imread("../imgs/r5.jpg")
+img = plt.imread("../imgs/r14.jpg")
 
 plt.imshow(img)
 plt.show()
@@ -46,7 +51,15 @@ plt.show()
 
 
 
+green_filter = betwnValues(averaged_vals[:,:,0], 130, 170) * betwnValues(averaged_vals[:,:,1], 130, 170) * betwnValues(averaged_vals[:,:,2], 130, 170)
 
+count = 0
+for i in range(w2):
+    if averaged_vals[0][i] ==
+
+
+plt.imshow(green_filter)
+plt.show()
 
 
 

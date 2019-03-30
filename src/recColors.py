@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy.misc as misc
 
 
 #import matplotlib.colors as colors
@@ -48,14 +49,13 @@ averaged_vals = np.stack((averaged_vals[0],averaged_vals[0],averaged_vals[0],ave
 
 plt.imshow(averaged_vals.astype(int))
 plt.show()
-
-
+misc.toimage(averaged_vals, cmin=0.0, cmax=255.0).save("josh.jpg")
 
 green_filter = betwnValues(averaged_vals[:,:,0], 130, 170) * betwnValues(averaged_vals[:,:,1], 130, 170) * betwnValues(averaged_vals[:,:,2], 130, 170)
 
 count = 0
-for i in range(w2):
-    if averaged_vals[0][i] ==
+#for i in range(w2):
+#    if averaged_vals[0][i] ==
 
 
 plt.imshow(green_filter)

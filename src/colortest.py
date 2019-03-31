@@ -36,11 +36,12 @@ def crop (name):
     plt.imshow(img)
     plt.show()
 
-    img = img[int(img.shape[0]*.2):-int(img.shape[0]*.2)]
+    img = img[int(img.shape[0]*.15):-int(img.shape[0]*.15)]
 
     if DEBUG:
         plt.imshow(img)
         plt.show()
+
 
     batchWidth = 8 
  
@@ -75,17 +76,18 @@ def crop (name):
     
     identifier = colorIdentifier("./img.jpg")
     #print("hi")
+    thresh = 30
     for i in range(w2):
-        if(averaged_vals[0][i][0] < (identifier.getDominant()[0]+20) and averaged_vals[0][i][0] > (identifier.getDominant()[0]-20)) :
-            if(averaged_vals[0][i][1] < (identifier.getDominant()[1]+20) and averaged_vals[0][i][1] > (identifier.getDominant()[1]-20)) :
-                if(averaged_vals[0][i][2] < (identifier.getDominant()[2]+20) and averaged_vals[0][i][2] > (identifier.getDominant()[2]-20)) :
+        if(averaged_vals[0][i][0] < (identifier.getDominant()[0]+thresh) and averaged_vals[0][i][0] > (identifier.getDominant()[0]-thresh)) :
+            if(averaged_vals[0][i][1] < (identifier.getDominant()[1]+thresh) and averaged_vals[0][i][1] > (identifier.getDominant()[1]-thresh)) :
+                if(averaged_vals[0][i][2] < (identifier.getDominant()[2]+thresh) and averaged_vals[0][i][2] > (identifier.getDominant()[2]-thresh)) :
                     averaged_vals = averaged_vals[:,i:]
                     break
     
     for i in range(averaged_vals.shape[1]-1, -1,-1):
-        if(averaged_vals[0][i][0] < (identifier.getDominant()[0]+20) and averaged_vals[0][i][0] > (identifier.getDominant()[0]-20)) :
-            if(averaged_vals[0][i][1] < (identifier.getDominant()[1]+20) and averaged_vals[0][i][1] > (identifier.getDominant()[1]-20)) :
-                if(averaged_vals[0][i][2] < (identifier.getDominant()[2]+20) and averaged_vals[0][i][2] > (identifier.getDominant()[2]-20)) :
+        if(averaged_vals[0][i][0] < (identifier.getDominant()[0]+thresh) and averaged_vals[0][i][0] > (identifier.getDominant()[0]-thresh)) :
+            if(averaged_vals[0][i][1] < (identifier.getDominant()[1]+thresh) and averaged_vals[0][i][1] > (identifier.getDominant()[1]-thresh)) :
+                if(averaged_vals[0][i][2] < (identifier.getDominant()[2]+thresh) and averaged_vals[0][i][2] > (identifier.getDominant()[2]-thresh)) :
                     averaged_vals = averaged_vals[:,:i]
                     break
     
@@ -102,61 +104,45 @@ def crop (name):
 def showColor (array, color): 
       
      def black(): #black looks grayish 
-         black_filter = (1.0 * (array[:,:,0])/array[:,:,1] > 0.9) *  (1.0 * (array[:,:,0])/array[:,:,1] < 1.1) * (1.0 * (array[:,:,1])/array[:,:,2] > 0.9) * (1.0 * (array[:,:,1])/array[:,:,2] < 1.1) * (array[:,:,1] < 170)
-         if DEBUG:
-             plt.imshow(black_filter)
-             plt.show()
-             print(color)
-         return black_filter
+         black_filter = (array[:,:,0] < 60) * (array[:,:,1] < 60) *  (array[:,:,2] < 60)
+         plt.imshow(black_filter) 
+         plt.show() 
+         print(color) 
      def brown(): 
-         brown_filter = (array[:,:,0] > 120) * (array[:,:,0] < 200) * (array[:,:,1] > 40) * (array[:,:,1] < 125) * (array[:,:,2] > 40) * (array[:,:,2] < 125)
-         if DEBUG:
-             plt.imshow(brown_filter)
-             plt.show()
-             print(color)
-         return brown_filter
+         brown_filter = ((array[:,:,0]*1.0/array[:,:,1])<2.2) * (array[:,:,0] > 50)* (array[:,:,0] < 180) * (array[:,:,1] > 20) * (array[:,:,1] < 90) * (array[:,:,2] > 10) * (array[:,:,2] < 90)
+         plt.imshow(brown_filter)  
+         plt.show() 
+         print(color) 
      def red(): 
-         red_filter = (array[:,:,0] > 170) * (array[:,:,1] > 50) * (array[:,:,1] < 110) * (array[:,:,2] > 50) * (array[:,:,1] < 120)
-         if DEBUG:
-             plt.imshow(red_filter)
-             plt.show()
-             print(color)
-         return red_filter
+         red_filter = ((array[:,:,0]*1.0/array[:,:,1])>2.2) * (array[:,:,0] > 100) * (array[:,:,1] > 30) * (array[:,:,1] < 80) * (array[:,:,2] > 20) * (array[:,:,2] < 90)
+         plt.imshow(red_filter) 
+         plt.show() 
+         print(color) 
      def orange(): 
-         orange_filter = (array[:,:,0] > 170) * (array[:,:,1] > 70) * (array[:,:,1] < 150)* (array[:,:,2] < 50)
-         if DEBUG:
-             plt.imshow(orange_filter)
-             plt.show()
-             print(color)
-         return orange_filter
+         orange_filter = ((array[:,:,1]*1.0/array[:,:,2])>1.4) * (array[:,:,0] > 160) * (array[:,:,1] > 60) * (array[:,:,1] < 130) * (array[:,:,2] > 15) * (array[:,:,2] < 100) 
+         plt.imshow(orange_filter) 
+         plt.show() 
+         print(color) 
      def yellow(): 
-         yellow_filter = (array[:,:,0] > 130) * (array[:,:,1] > 130) * (array[:,:,2] < 80)
-         if DEBUG:
-             plt.imshow(yellow_filter)
-             plt.show()
-             print(color)
-         return yellow_filter
+         yellow_filter = (array[:,:,0] > 160) * (array[:,:,1] > 140) * (array[:,:,1] < 200) * (array[:,:,2] > 10) * (array[:,:,2] < 80) 
+         plt.imshow(yellow_filter) 
+         plt.show() 
+         print(color) 
      def green(): 
-         green_filter = (array[:,:,0] < 120) * (array[:,:,1] > 140) * (array[:,:,2] < 120)
-         if DEBUG:
-             plt.imshow(green_filter)
-             plt.show()
-             print(color)
-         return green_filter
+         green_filter = (array[:,:,0] > 50) * (array[:,:,0] < 125) * (array[:,:,1] > 60) * (array[:,:,2] < 90) * (array[:,:,2] > 30) 
+         plt.imshow(green_filter) 
+         plt.show() 
+         print(color) 
      def blue(): 
-         blue_filter = (array[:,:,0] < 80) * (array[:,:,1] < 120) * (array[:,:,2] > 100)
-         if DEBUG:
-             plt.imshow(blue_filter)
-             plt.show()
-             print(color)
-         return blue_filter
+         blue_filter = (array[:,:,0] > 10) * (array[:,:,0] < 50) * (array[:,:,1] > 80) * (array[:,:,1] < 120) * (array[:,:,2] > 150) 
+         plt.imshow(blue_filter) 
+         plt.show() 
+         print(color) 
      def violet(): 
-         violet_filter = (array[:,:,0] > 100) * (array[:,:,0]  < 190) * (array[:,:,1] > 75) * (array[:,:,1] < 125) * (array[:,:,2] > 110) * (array[:,:,2] < 173)
-         if DEBUG:
-             plt.imshow(violet_filter)
-             plt.show()
-             print(color)
-         return violet_filter
+         violet_filter = (array[:,:,0] > 100) * (array[:,:,0]  < 190) * (array[:,:,1] > 70) * (array[:,:,1] < 140) * (array[:,:,2] > 120) * (array[:,:,2] < 180)
+         plt.imshow(violet_filter) 
+         plt.show() 
+         print(color) 
      def gray(): 
          gray_filter = (array[:,:,0] > 130) * (array[:,:,0] < 150) * (array[:,:,1] > 120) * (array[:,:,1] < 140) * (array[:,:,2] > 100) * (array[:,:,2] < 120)
          if DEBUG:
@@ -191,8 +177,9 @@ def showColor (array, color):
 # Four-band resistors
 
 ohm_calculator_4 = Calculator(4)
-
-for x in [1,9]:
+# Four-band resistors  
+          
+for x in range (1,20): 
     pic = "../imgs/r" + str(x) + ".jpg" 
     print("r" + str(x)) 
     array = crop(pic) 
@@ -223,3 +210,12 @@ for x in [1,9]:
 #     for y in range (0,10):
 #         showColor(array,y)
 #
+
+#for x in range (1,10):
+#    pic = "..imgs/5Band" + str(x) + ".jpg"
+#    print("5Band" + str(x))
+#    array = crop(pic)
+    
+##        showColor(array,y) 
+         
+

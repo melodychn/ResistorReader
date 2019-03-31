@@ -63,18 +63,18 @@ def crop (name):
 
 def showColor (array, color): 
       
-     def black(): 
-         black_filter = (array[:,:,0] < 65) * (array[:,:,1] < 65) * (array[:,:,2] < 65) 
+     def black(): #black looks grayish 
+         black_filter = (1.0 * (array[:,:,0])/array[:,:,1] > 0.9) *  (1.0 * (array[:,:,0])/array[:,:,1] < 1.1) * (1.0 * (array[:,:,1])/array[:,:,2] > 0.9) * (1.0 * (array[:,:,1])/array[:,:,2] < 1.1) * (array[:,:,1] < 150) 
          plt.imshow(black_filter) 
          plt.show() 
          print(color) 
      def brown(): 
-         brown_filter = (array[:,:,0] > 50) * (array[:,:,1] < 100) * (array[:,:,2] < 50) 
+         brown_filter = (array[:,:,0] > 120) * (array[:,:,0] < 200) * (array[:,:,1] > 40) * (array[:,:,1] < 125) * (array[:,:,2] > 40) * (array[:,:,2] < 125) 
          plt.imshow(brown_filter)  
          plt.show() 
          print(color) 
      def red(): 
-         red_filter = (array[:,:,0] > 170) * (array[:,:,1] < 100) * (array[:,:,2] < 100) 
+         red_filter = (array[:,:,0] > 170) * (array[:,:,1] > 50) * (array[:,:,1] < 110) * (array[:,:,2] > 50) * (array[:,:,1] < 120)
          plt.imshow(red_filter) 
          plt.show() 
          print(color) 
@@ -132,7 +132,7 @@ def showColor (array, color):
    
 # Four-band resistors  
           
-for x in range (1,11): 
+for x in range (1,21): 
     pic = "./imgs/r" + str(x) + ".jpg" 
     print("r" + str(x)) 
     array = crop(pic) 

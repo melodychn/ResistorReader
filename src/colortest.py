@@ -108,41 +108,49 @@ def showColor (array, color):
          plt.imshow(black_filter) 
          plt.show() 
          print(color) 
+         return black_filter
      def brown(): 
          brown_filter = ((array[:,:,0]*1.0/array[:,:,1])<2.2) * (array[:,:,0] > 50)* (array[:,:,0] < 180) * (array[:,:,1] > 20) * (array[:,:,1] < 90) * (array[:,:,2] > 10) * (array[:,:,2] < 90)
          plt.imshow(brown_filter)  
          plt.show() 
          print(color) 
+         return brown_filter
      def red(): 
          red_filter = ((array[:,:,0]*1.0/array[:,:,1])>2.2) * (array[:,:,0] > 100) * (array[:,:,1] > 30) * (array[:,:,1] < 80) * (array[:,:,2] > 20) * (array[:,:,2] < 90)
          plt.imshow(red_filter) 
          plt.show() 
-         print(color) 
+         print(color)
+         return red_filter
      def orange(): 
          orange_filter = ((array[:,:,1]*1.0/array[:,:,2])>1.4) * (array[:,:,0] > 160) * (array[:,:,1] > 60) * (array[:,:,1] < 130) * (array[:,:,2] > 15) * (array[:,:,2] < 100) 
          plt.imshow(orange_filter) 
          plt.show() 
-         print(color) 
+         print(color)
+         return orange_filter
      def yellow(): 
          yellow_filter = (array[:,:,0] > 160) * (array[:,:,1] > 140) * (array[:,:,1] < 200) * (array[:,:,2] > 10) * (array[:,:,2] < 80) 
          plt.imshow(yellow_filter) 
          plt.show() 
          print(color) 
+         return yellow_filter
      def green(): 
          green_filter = (array[:,:,0] > 50) * (array[:,:,0] < 125) * (array[:,:,1] > 60) * (array[:,:,2] < 90) * (array[:,:,2] > 30) 
          plt.imshow(green_filter) 
          plt.show() 
          print(color) 
+         return green_filter
      def blue(): 
          blue_filter = (array[:,:,0] > 10) * (array[:,:,0] < 50) * (array[:,:,1] > 80) * (array[:,:,1] < 120) * (array[:,:,2] > 150) 
          plt.imshow(blue_filter) 
          plt.show() 
          print(color) 
+         return blue_filter
      def violet(): 
          violet_filter = (array[:,:,0] > 100) * (array[:,:,0]  < 190) * (array[:,:,1] > 70) * (array[:,:,1] < 140) * (array[:,:,2] > 120) * (array[:,:,2] < 180)
          plt.imshow(violet_filter) 
          plt.show() 
          print(color) 
+         return violet_filter
      def gray(): 
          gray_filter = (array[:,:,0] > 130) * (array[:,:,0] < 150) * (array[:,:,1] > 120) * (array[:,:,1] < 140) * (array[:,:,2] > 100) * (array[:,:,2] < 120)
          if DEBUG:
@@ -178,38 +186,50 @@ def showColor (array, color):
 
 ohm_calculator_4 = Calculator(4)
 # Four-band resistors  
-          
-for x in range (1,20): 
+          #r7, 11, 12, 13, 16, 19, 20, 21, 22, 23, 24, 25, 26, 27
+          #r1, 2, 3, 4, 5, 6, 9, 10, 15, 17, 18
+for x in range (1,8): 
     pic = "../imgs/r" + str(x) + ".jpg" 
     print("r" + str(x)) 
     array = crop(pic) 
-
+    blackDetected = False
+    brownDetected = False
     locations = np.zeros((3,2))
     c = 0
     for y in range (0,10): 
         detection = showColor(array,y)
         pos = np.argwhere(detection)
-        if pos.shape[0] > 0 and y != 8 and y != 9:
+        if pos.shape[0] > 0 and y != 8:
+            if blackDetected and (y == 1 or y == 5):
+                continue
+            if y==0:
+                blackDetected = True
+            if brownDetected and y == 5:
+                continue
+            if y == 1:
+                brownDetected = True
             prev = -1
             for p in pos:
+                print(p)
                 if p[1] - prev > 1:
                     locations[c][0] = p[1]
                     locations[c][1] = y
                     c+=1
-                if p[0] != 0:
+                if p[0]!=0:
                     break
                 prev = p[1]
     locations = sorted(locations, key=lambda x:x[0])
-    print(ohm_calculator_4.calculate(locations[0][1],locations[1][1],locations[2][1], .1), "Ohms")
+    print(10**locations[2][1])
+    print(ohm_calculator_4.calculate(locations[0][1],locations[1][1],10**locations[2][1], .1), "Ohms")
         
-# for x in range (1,10):
-#     pic = "..imgs/5Band" + str(x) + ".jpg"
-#     print("5Band" + str(x))
-#     array = crop(pic)
-#
+#for x in range (1,10):
+#     pic = "../imgs/r" + str(x) + ".jpg" 
+#     print("r" + str(x)) 
+#     array = crop(pic) 
+
 #     for y in range (0,10):
 #         showColor(array,y)
-#
+
 
 #for x in range (1,10):
 #    pic = "..imgs/5Band" + str(x) + ".jpg"

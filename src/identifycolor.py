@@ -5,10 +5,11 @@ Created on Sat Mar 30 12:17:42 2019
 
 @author: melodychen
 """
+from clarifai.rest import ClarifaiApp
+from clarifai.rest import Image as ClImage
 
 class colorIdentifier:
-    from clarifai.rest import ClarifaiApp
-    from clarifai.rest import Image as ClImage
+    
     def __init__(self,path):
         self.path = path
         self.app = ClarifaiApp(api_key='')

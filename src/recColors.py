@@ -19,7 +19,8 @@ def betwnValues(val, min, max):
 
 img = plt.imread("../imgs/r6.jpg")
 
-img = img[10:-10]
+
+img = img[int(img.shape[0]*.2):-int(img.shape[0]*.2)]
 
 plt.imshow(img)
 plt.show()

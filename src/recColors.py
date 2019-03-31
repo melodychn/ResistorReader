@@ -17,7 +17,7 @@ def betwnValues(val, min, max):
     return (val > min) * (val < max)
 
 
-img = plt.imread("../imgs/r1.jpg")
+img = plt.imread("../imgs/r7.jpg")
 
 plt.imshow(img)
 plt.show()

@@ -12,7 +12,7 @@ class colorIdentifier:
     
     def __init__(self,path):
         self.path = path
-        self.app = ClarifaiApp(api_key='')
+        self.app = ClarifaiApp(api_key='c74551e84dce4f2aa6528c43e24dc050')
         self.model = self.app.models.get('color')
         self.response = self.model.predict_by_filename(self.path)
         self.colorlist = []

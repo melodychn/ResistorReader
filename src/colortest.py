@@ -161,7 +161,7 @@ def showColor (array, color):
 # Four-band resistors  
           
 for x in range (1,21): 
-    pic = "./imgs/r" + str(x) + ".jpg" 
+    pic = "../imgs/r" + str(x) + ".jpg" 
     print("r" + str(x)) 
     array = crop(pic) 
      

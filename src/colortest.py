@@ -30,7 +30,8 @@ def crop (name):
         return (val > min) * (val < max)
     
     img = plt.imread(name) 
-     
+    img = img[int(img.shape[0]*.2):-int(img.shape[0]*.2)] 
+    
     plt.imshow(img) 
     plt.show() 
  

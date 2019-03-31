@@ -93,7 +93,7 @@ def crop (name):
 def showColor (array, color): 
       
      def black(): #black looks grayish 
-         black_filter = (1.0 * (array[:,:,0])/array[:,:,1] > 0.9) *  (1.0 * (array[:,:,0])/array[:,:,1] < 1.1) * (1.0 * (array[:,:,1])/array[:,:,2] > 0.9) * (1.0 * (array[:,:,1])/array[:,:,2] < 1.1) * (array[:,:,1] < 150) 
+         black_filter = (1.0 * (array[:,:,0])/array[:,:,1] > 0.9) *  (1.0 * (array[:,:,0])/array[:,:,1] < 1.1) * (1.0 * (array[:,:,1])/array[:,:,2] > 0.9) * (1.0 * (array[:,:,1])/array[:,:,2] < 1.1) * (array[:,:,1] < 170) 
          plt.imshow(black_filter) 
          plt.show() 
          print(color) 
@@ -108,7 +108,7 @@ def showColor (array, color):
          plt.show() 
          print(color) 
      def orange(): 
-         orange_filter = (array[:,:,0] > 170) * (array[:,:,1] > 70) * (array[:,:,1] < 150)* (array[:,:,2] < 100) 
+         orange_filter = (array[:,:,0] > 170) * (array[:,:,1] > 70) * (array[:,:,1] < 150)* (array[:,:,2] < 50) 
          plt.imshow(orange_filter) 
          plt.show() 
          print(color) 
@@ -118,22 +118,22 @@ def showColor (array, color):
          plt.show() 
          print(color) 
      def green(): 
-         green_filter = (array[:,:,0] < 120) * (array[:,:,1] > 90) * (array[:,:,2] < 120) 
+         green_filter = (array[:,:,0] < 120) * (array[:,:,1] > 140) * (array[:,:,2] < 120) 
          plt.imshow(green_filter) 
          plt.show() 
          print(color) 
      def blue(): 
-         blue_filter = (array[:,:,0] < 80) * (array[:,:,1] < 150) * (array[:,:,2] > 100) 
+         blue_filter = (array[:,:,0] < 80) * (array[:,:,1] < 120) * (array[:,:,2] > 100) 
          plt.imshow(blue_filter) 
          plt.show() 
          print(color) 
      def violet(): 
-         violet_filter = (array[:,:,0] > 50) * (array[:,:,1] < 150) * (array[:,:,2] > 140) 
+         violet_filter = (array[:,:,0] > 100) * (array[:,:,0]  < 190) * (array[:,:,1] > 75) * (array[:,:,1] < 125) * (array[:,:,2] > 110) * (array[:,:,2] < 173)
          plt.imshow(violet_filter) 
          plt.show() 
          print(color) 
      def gray(): 
-         gray_filter = (array[:,:,0] > 50) * (array[:,:,0] < 200) * (array[:,:,1] > 50) * (array[:,:,1] < 200) * (array[:,:,2] > 50) * (array[:,:,2] < 200) 
+         gray_filter = (array[:,:,0] > 130) * (array[:,:,0] < 150) * (array[:,:,1] > 120) * (array[:,:,1] < 140) * (array[:,:,2] > 100) * (array[:,:,2] < 120) 
          plt.imshow(gray_filter) 
          plt.show() 
          print(color) 
@@ -161,11 +161,19 @@ def showColor (array, color):
    
 # Four-band resistors  
           
-for x in range (1,21): 
+for x in range (1,28): 
     pic = "../imgs/r" + str(x) + ".jpg" 
     print("r" + str(x)) 
     array = crop(pic) 
      
+    for y in range (0,10): 
+        showColor(array,y) 
+        
+for x in range (1,10):
+    pic = "..imgs/5Band" + str(x) + ".jpg"
+    print("5Band" + str(x))
+    array = crop(pic)
+    
     for y in range (0,10): 
         showColor(array,y) 
          

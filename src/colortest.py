@@ -188,7 +188,7 @@ ohm_calculator_4 = Calculator(4)
 # Four-band resistors  
           #r7, 11, 12, 13, 16, 19, 20, 21, 22, 23, 24, 25, 26, 27
           #r1, 2, 3, 4, 5, 6, 9, 10, 15, 17, 18
-for x in range (1,8): 
+for x in range (15,16): 
     pic = "../imgs/r" + str(x) + ".jpg" 
     print("r" + str(x)) 
     array = crop(pic) 

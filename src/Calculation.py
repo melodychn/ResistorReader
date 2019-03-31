@@ -20,7 +20,7 @@ class Calculator:
         return resistance
     def calculate(self, color1, color2, color3, color4, color5=0):
         if(type==4):
-            resist = calculate1(color1,color2,color3,color4)
+            resist = self.calculate1(color1,color2,color3,color4)
         else:
-            resist = calculate2(color1,color2,color3,color4,color5)
+            resist = self.calculate2(color1,color2,color3,color4,color5)
         return resist

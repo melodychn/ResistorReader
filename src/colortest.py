@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 """
 Created on Sat Mar 30 00:35:26 2019
 
@@ -18,14 +18,17 @@ CONST_WHITE = 9
 CONST_SILVER = 10 
 CONST_GOLD = 11 
  
-import numpy as np 
-import matplotlib.pyplot as plt 
-import matplotlib.colors as colors 
-import scipy.ndimage.filters as sp 
-import scipy.signal as sig 
-import scipy.spatial.distance as similarity 
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.misc as misc
 
-def crop (name): 
+from identifycolor import colorIdentifier
+
+def crop (name):
+    
+    def betwnValues(val, min, max):
+        return (val > min) * (val < max)
+    
     img = plt.imread(name) 
      
     plt.imshow(img) 
@@ -58,6 +61,31 @@ def crop (name):
     averaged_vals = np.stack((averaged_vals[0],averaged_vals[0],averaged_vals[0],averaged_vals[0],averaged_vals[0],averaged_vals[0]), axis=0) 
     plt.imshow(averaged_vals.astype(int)) 
     plt.show() 
+    misc.toimage(averaged_vals, cmin=0.0, cmax=255.0).save("img.jpg")
+    
+    identifier = colorIdentifier("./img.jpg")
+    #print("hi")
+    for i in range(w2):
+        if(averaged_vals[0][i][0] < (identifier.getDominant()[0]+20) and averaged_vals[0][i][0] > (identifier.getDominant()[0]-20)) :
+            if(averaged_vals[0][i][1] < (identifier.getDominant()[1]+20) and averaged_vals[0][i][1] > (identifier.getDominant()[1]-20)) :
+                if(averaged_vals[0][i][2] < (identifier.getDominant()[2]+20) and averaged_vals[0][i][2] > (identifier.getDominant()[2]-20)) :
+                    averaged_vals = averaged_vals[:,i:]
+                    break
+    
+    for i in range(averaged_vals.shape[1]-1, -1,-1):
+        if(averaged_vals[0][i][0] < (identifier.getDominant()[0]+20) and averaged_vals[0][i][0] > (identifier.getDominant()[0]-20)) :
+            if(averaged_vals[0][i][1] < (identifier.getDominant()[1]+20) and averaged_vals[0][i][1] > (identifier.getDominant()[1]-20)) :
+                if(averaged_vals[0][i][2] < (identifier.getDominant()[2]+20) and averaged_vals[0][i][2] > (identifier.getDominant()[2]-20)) :
+                    averaged_vals = averaged_vals[:,:i]
+                    break
+    
+    #green_filter = betwnValues(averaged_vals[:,:,0], 130, 170) * betwnValues(averaged_vals[:,:,1], 130, 170) * betwnValues(averaged_vals[:,:,2], 130, 170)
+    
+    plt.imshow(averaged_vals.astype(int))
+    plt.show()
+    
+    #plt.imshow(green_filter)
+    #plt.show()
     
     return averaged_vals 
 
@@ -133,7 +161,7 @@ def showColor (array, color):
 # Four-band resistors  
           
 for x in range (1,21): 
-    pic = "./imgs/r" + str(x) + ".jpg" 
+    pic = "../imgs/r" + str(x) + ".jpg" 
     print("r" + str(x)) 
     array = crop(pic) 
      

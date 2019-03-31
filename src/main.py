@@ -5,9 +5,11 @@ Created on Sat Mar 30 00:47:34 2019
 
 @author: melodychen
 """
-from Calculation import Calculator
 #import ImageReader
 from colortestobject import colorDetector
 
 josh = colorDetector()
-josh.detect(15)
+josh.detect(1)
+
+#r1, 2, 3, 4, 5, 6, 9, 10, 15, 17, 18
+#15 own photo 17 good glare

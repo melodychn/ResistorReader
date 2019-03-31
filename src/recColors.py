@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.misc as misc
 
-import identifycolor 
+from identifycolor import colorIdentifier
 
 #import matplotlib.colors as colors
 #import scipy.ndimage.filters as sp
@@ -17,10 +17,13 @@ def betwnValues(val, min, max):
     return (val > min) * (val < max)
 
 
-img = plt.imread("../imgs/r1.jpg")
+img = plt.imread("../imgs/r6.jpg")
+
+img = img[10:-10]
 
 plt.imshow(img)
 plt.show()
+
 
 batchWidth = 8
 
@@ -53,7 +56,7 @@ plt.show()
 misc.toimage(averaged_vals, cmin=0.0, cmax=255.0).save("josh.jpg")
 
 
-identifier = colorIdentifier("/Users/melodychen/Documents/Projects/ResistorReader/src/josh.jpg")
+identifier = colorIdentifier("./josh.jpg")
 print("hi")
 for i in range(w2):
     if(averaged_vals[0][i][0] < (identifier.getDominant()[0]+20) and averaged_vals[0][i][0] > (identifier.getDominant()[0]-20)) :

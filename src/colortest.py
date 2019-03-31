@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 """
 Created on Sat Mar 30 00:35:26 2019
 
@@ -22,7 +22,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.misc as misc
 
-import identifycolor 
+from identifycolor import colorIdentifier
 
 def crop (name):
     

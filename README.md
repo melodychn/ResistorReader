@@ -1,3 +1,4 @@
 # ResistorReader
 
-https://clarifai.com/models/color-image-recognition-model-eeed0b6733a644cea07cf4c60f87ebb7#documentation
+Given an image input of a resistor image, ResistorReader will identify the four color bands and calculate its resistance.
+<br/>Created to eliminate the trouble of interpreting the resistance of a resistor for the color blind. 
